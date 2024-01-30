@@ -2,6 +2,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import movies.Movie;
+import movies.MovieImpl;
 import movies.Person;
 import org.junit.Before;
 import org.junit.Test;
