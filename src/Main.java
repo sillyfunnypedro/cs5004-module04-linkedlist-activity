@@ -21,7 +21,7 @@ public class Main {
 
   /**
    * Driver class. Read movies from a CSV file, convert them into Movie objects, and then add them
-   * to a LinkedList.
+   * to a LinkedList. The list is order chronologically.
    *
    * @param args command line arguments (unused)
    */
@@ -41,8 +41,8 @@ public class Main {
           isFirstLine = false; // Skip the first line (header)
           continue;
         }
-        // Turn Movie String into Movie object and add to the LinkedList.
-        movieList.add(turnStringIntoMovie(movieString));
+        // Turn Movie String into Movie object and add to the LinkedList in the right location.
+        insertInOrder(turnStringIntoMovie(movieString), movieList);
       }
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, "Error reading file " + filePath, e);
@@ -89,5 +89,22 @@ public class Main {
     int year = Integer.parseInt(movieInfoArray[2]);
 
     return new MovieImpl(movieInfoArray[0], new Person(firstName, lastName.toString()), year);
+  }
+
+  /**
+   * Insert a Movie object into a list of Movie objects in chronological order.
+   *
+   * @param movie     a Movie object
+   * @param movieList a list of Movie objects
+   */
+  private static void insertInOrder(Movie movie, List<Movie> movieList) {
+    for (int index = 0; index < movieList.size(); index++) {
+      if (movie.compareTo(movieList.get(index)) < 0) {
+        movieList.add(index, movie);
+        return; // Return after inserting the movie in the correct position
+      }
+    }
+    // If the movie wasn't inserted in the loop, it means it should be placed at the end of the list
+    movieList.add(movie);
   }
 }
