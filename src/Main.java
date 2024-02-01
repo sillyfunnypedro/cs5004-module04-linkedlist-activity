@@ -56,12 +56,9 @@ public class Main {
 
     // Print the list of movies made in 1994
     System.out.println("\nList of movies made in 1994:");
-    for (Movie movie : movieList) {
-      if (movie.getYear() == 1994) {
-        System.out.println(movie);
-      }
-    }
-
+    movieList.stream()
+        .filter(movie -> movie.getYear() == 1994)
+        .forEach(System.out::println);
   }
 
   /**
@@ -80,7 +77,7 @@ public class Main {
     StringBuilder lastName = new StringBuilder();
     for (int index = 1; index < directorInfoArray.length; index++) {
       if (index > 1) {
-        lastName.append(" "); // For directors with more than one last name
+        lastName.append(" "); // For directors with more than one word in their last name
       }
       lastName.append(directorInfoArray[index]);
     }
