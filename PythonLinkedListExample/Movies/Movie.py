@@ -1,6 +1,7 @@
 # a class to store movie information
 
 #import Person from Person.py
+
 from Person import Person
 class Movie:
     def __init__(self, title: str, year: int, director:Person):
@@ -63,6 +64,10 @@ class Movie:
     def __str__(self):
         return self._title + " (" + str(self._director) + ", " + str(self._year) + ")"
 
+    def count(self):
+        return 1 + self._next.count()
+
+
 
 import unittest
 
@@ -97,6 +102,8 @@ class TestMovie(unittest.TestCase):
         self.assertEqual("The Apartment (Billy Wilder, 1960)", str(self.apartment))
         self.assertEqual("La Dolce Vita (Federico Fellini, 1960)", str(self.ladolcevita))
         self.assertEqual("Dr. Strangelove (Stanley Kubrick, 1964)", str(self.strangelove))
+
+
 
 
 

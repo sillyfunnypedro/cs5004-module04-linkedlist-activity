@@ -8,3 +8,7 @@ class EmptyMovie(Movie):
     def __str__(self):
         return "-|"
 
+
+    def count(self):
+        return 0
+

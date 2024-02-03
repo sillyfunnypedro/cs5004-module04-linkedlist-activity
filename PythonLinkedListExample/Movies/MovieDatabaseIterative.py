@@ -99,6 +99,14 @@ class MovieDatabaseIterative:
             current_movie = current_movie._next
         return movies
 
+    ##############################################################
+    # Count the number of movies in a list
+    # @param movies_head: the head of the list of movies
+    # @return the number of movies in the list
+    ##############################################################
+    def count(self, movies_head:Movie) -> int:
+        return movies_head.count()
+
 
 
 
@@ -151,3 +159,12 @@ class TestMovieDatabaseIterative(unittest.TestCase):
 
         movies = database.getMoviesByDirector(Person("Christopher", "Nolan"))
         self.assertEqual("The Dark Knight", movies.getTitle())
+
+    def test_count(self):
+        database = MovieDatabaseIterative()
+        database._movies_head = database.addMovieInOrder(database.getMoviesHead(),"The Shawshank Redemption", 1994, Person("Frank", "Darabont"))
+        database._movies_head = database.addMovieInOrder(database.getMoviesHead(),"The Godfather", 1972, Person("Francis", "Ford Coppola"))
+        database._movies_head = database.addMovieInOrder(database.getMoviesHead(),"The Godfather Part II", 1974, Person("Francis", "Ford Coppola"))
+        database._movies_head = database.addMovieInOrder(database.getMoviesHead(),"The Godfather Part III", 1990, Person("Francis", "Ford Coppola"))
+        database._movies_head = database.addMovieInOrder(database.getMoviesHead(),"The Dark Knight", 2008, Person("Christopher", "Nolan"))
+        self.assertEqual(5, database.count(database.getMoviesHead()))
