@@ -89,13 +89,13 @@ class MovieDatabaseIterative:
     # @param director: the director of the movies
     # @return the list of movies by the given director
     ##############################################################
-    def getMoviesByDirector(self, director:Person) -> list:
-        movies = None
+    def getMoviesByDirector(self, director:Person) -> Movie:
+        movies = EmptyMovie()
         current_movie = self._movies_head
-        while current_movie is not None:
+        while not isinstance(current_movie, EmptyMovie):
             if current_movie.getDirector() == director:
-                new_movie = Movie.Movie(current_movie.getTitle(), current_movie.getYear(), current_movie.getDirector())
-                new_movie._next = movies
+
+                movies = self.addMovieAtEnd(movies, current_movie.getTitle(), current_movie.getYear(), current_movie.getDirector())
             current_movie = current_movie._next
         return movies
 
@@ -133,3 +133,21 @@ class TestMovieDatabaseIterative(unittest.TestCase):
         self.assertEqual("The Godfather", database._movies_head._title)
         self.assertEqual("The Shawshank Redemption", database._movies_head._next._title)
         self.assertEqual("The Dark Knight", database._movies_head._next._next._title)
+
+    def test_getMoviesByDirector(self):
+        database = MovieDatabaseIterative()
+        database._movies_head = database.addMovieInOrder(database.getMoviesHead(),"The Shawshank Redemption", 1994, Person("Frank", "Darabont"))
+        database._movies_head = database.addMovieInOrder(database.getMoviesHead(),"The Godfather", 1972, Person("Francis", "Ford Coppola"))
+        database._movies_head = database.addMovieInOrder(database.getMoviesHead(),"The Godfather Part II", 1974, Person("Francis", "Ford Coppola"))
+        database._movies_head = database.addMovieInOrder(database.getMoviesHead(),"The Godfather Part III", 1990, Person("Francis", "Ford Coppola"))
+
+        database._movies_head = database.addMovieInOrder(database.getMoviesHead(),"The Dark Knight", 2008, Person("Christopher", "Nolan"))
+        movies = database.getMoviesByDirector(Person("Frank", "Darabont"))
+        self.assertEqual("The Shawshank Redemption", movies.getTitle())
+
+        movies = database.getMoviesByDirector(Person("Francis", "Ford Coppola"))
+        self.assertEqual("The Godfather", movies.getTitle())
+        self.assertEqual("The Godfather Part II", movies._next.getTitle())
+
+        movies = database.getMoviesByDirector(Person("Christopher", "Nolan"))
+        self.assertEqual("The Dark Knight", movies.getTitle())
