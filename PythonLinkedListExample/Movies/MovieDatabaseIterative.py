@@ -24,9 +24,8 @@ class MovieDatabaseIterative:
         new_movie._next = None
 
         current_movie = movies_head
+        
         # the end of the list is a node of type EmptyMovie
-
-        # if the head of the
         if isinstance(current_movie, EmptyMovie):
             new_movie._next = movies_head
             movies_head = new_movie
