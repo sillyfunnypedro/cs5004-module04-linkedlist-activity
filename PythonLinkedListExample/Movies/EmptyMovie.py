@@ -1,5 +1,6 @@
 from Movie import Movie
 
+
 class EmptyMovie(Movie):
     def __init__(self):
         super().__init__("", 0, None)
@@ -8,7 +9,5 @@ class EmptyMovie(Movie):
     def __str__(self):
         return "-|"
 
-
     def count(self):
         return 0
-

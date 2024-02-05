@@ -1,58 +1,58 @@
 # a class to store movie information
 
-#import Person from Person.py
-
+# import Person from Person.py
 from Person import Person
+
+
 class Movie:
-    def __init__(self, title: str, year: int, director:Person):
-        self._title:str = title
-        self._year:int = year
-        self._director:Person = director
-        self._next:Movie = None
+    def __init__(self, title: str, year: int, director: Person):
+        self._title: str = title
+        self._year: int = year
+        self._director: Person = director
+        self._next: Movie = None
 
-
-    def getTitle(self) -> str:
+    def get_title(self) -> str:
         return self._title
 
-    def getYear(self) -> int:
+    def get_year(self) -> int:
         return self._year
 
-    def getDirector(self) -> Person:
+    def get_director(self) -> Person:
         return self._director
 
     def __eq__(self, other):
         if not isinstance(other, Movie):
             return False
-        if (self._title == other._title
-                and self._year == other._year
-                and self._director == other._director):
+        if (self._title == other.get_title()
+                and self._year == other.get_year()
+                and self._director == other.get_director()):
             return True
         return False
 
     def __lt__(self, other):
 
-        if self._year < other._year:
+        if self._year < other.get_year():
             return True
-        if self._year > other._year:
+        if self._year > other.get_year():
             return False
-        if self._title < other._title:
+        if self._title < other.get_title():
             return True
-        if self._title > other._title:
+        if self._title > other.get_title():
             return False
-        if self._director < other._director:
+        if self._director < other.get_director():
             return True
         return False
 
     def __gt__(self, other):
-        if self._year > other._year:
+        if self._year > other.get_year():
             return True
-        if self._year < other._year:
+        if self._year < other.get_year():
             return False
-        if self._title > other._title:
+        if self._title > other.get_title():
             return True
-        if self._title < other._title:
+        if self._title < other.get_title():
             return False
-        if self._director > other._director:
+        if self._director > other.get_director():
             return True
         return False
 
@@ -68,8 +68,8 @@ class Movie:
         return 1 + self._next.count()
 
 
-
 import unittest
+
 
 ########################
 # The unit tests for the Movie class
@@ -77,7 +77,6 @@ import unittest
 
 class TestMovie(unittest.TestCase):
     def setUp(self):
-
         self.billyWild = Person("Billy", "Wilder")
         self.federicoFellini = Person("Federico", "Fellini")
         self.stanleyKubrick = Person("Stanley", "Kubrick")
@@ -86,10 +85,9 @@ class TestMovie(unittest.TestCase):
         self.ladolcevita = Movie("La Dolce Vita", 1960, self.federicoFellini)
         self.strangelove = Movie("Dr. Strangelove", 1964, self.stanleyKubrick)
 
-
     def test_eq(self):
         self.assertEqual(self.apartment, self.apartment)
-        self.assertEqual(self.apartment, Movie("The Apartment", 1960, self.federicoFellini))
+        self.assertEqual(self.apartment, Movie("The Apartment", 1960, self.billyWild))
         self.assertNotEqual(self.apartment, self.ladolcevita)
         self.assertNotEqual(self.apartment, self.strangelove)
 
@@ -102,9 +100,3 @@ class TestMovie(unittest.TestCase):
         self.assertEqual("The Apartment (Billy Wilder, 1960)", str(self.apartment))
         self.assertEqual("La Dolce Vita (Federico Fellini, 1960)", str(self.ladolcevita))
         self.assertEqual("Dr. Strangelove (Stanley Kubrick, 1964)", str(self.strangelove))
-
-
-
-
-
-
